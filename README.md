@@ -1,9 +1,22 @@
 # Terraform Provider Sendgrid
+## supported
+Current supported only `ip_access_management`
+https://sendgrid.com/docs/API_Reference/Web_API_v3/ip_access_management.html
 
-Run the following command to build the provider
+### data-sources
+- sendgrid_whitelist_ip
+```
+data "sendgrid_whitelist_ip" "first" {
+  id = 1945952
+}
+```
 
-```shell
-go build -o terraform-provider-sendgrid
+### resources
+- sendgrid_whitelist_ip
+```
+resource "sendgrid_whitelist_ip" "first" {
+  ip = "192.168.0.1/32"
+}
 ```
 
 ## Test sample configuration
@@ -20,3 +33,5 @@ Then, run the following command to initialize the workspace and apply the sample
 cd examples
 terraform init && terraform apply
 ```
+
+
