@@ -17,6 +17,6 @@ data "sendgrid_whitelist_ip" "first" {
   id = 1945952
 }
 
-resource "sendgrid_whitelist_ip" "cert" {
+resource "sendgrid_whitelist_ip" "first" {
   ip = "192.168.0.1/32"
 }
