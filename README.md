@@ -1,6 +1,6 @@
 # Terraform Provider Sendgrid
 ## supported
-Current supported only `ip_access_management`
+Current supported only `ip_access_management`  
 https://sendgrid.com/docs/API_Reference/Web_API_v3/ip_access_management.html
 
 ### data-sources
