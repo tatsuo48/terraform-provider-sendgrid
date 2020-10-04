@@ -26,3 +26,11 @@ In addition to all arguments above, the following attributes are exported:
 - `id` - Rule ID.
 - `created_at` - The time when the rule was created.
 - `updated_at` - The time when the rule was updated.
+
+## Import
+
+Service Thing can be imported using the id(`Rule ID`), e.g.
+
+```shell
+terraform import sendgrid_whitelist_ip.first 1234567
+```
