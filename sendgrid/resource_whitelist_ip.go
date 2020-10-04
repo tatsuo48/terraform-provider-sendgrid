@@ -48,13 +48,17 @@ func resourceWhitelistIPCreate(ctx context.Context, d *schema.ResourceData, m in
 	// Warning or errors can be collected in a slice type
 	var diags diag.Diagnostics
 
-	request := sendgrid.GetRequest(apiKey, "/v3/access_settings/whitelist", "https://api.sendgrid.com")
+	path := "/v3/access_settings/whitelist"
+	request := sendgrid.GetRequest(apiKey, path, "https://api.sendgrid.com")
 	request.Method = "POST"
 	body := fmt.Sprintf(`{"ips": [{"ip": "%s"}]}`, d.Get("ip"))
 	request.Body = []byte(body)
 	r, err := sendgrid.API(request)
 	if err != nil {
 		return diag.FromErr(err)
+	}
+	if r.StatusCode != 201 {
+		return diag.Errorf("Request is failed\n path: %s\n body: %s\n status code: %d\n ", path, r.Body, r.StatusCode)
 	}
 	w := whitelistResponse{}
 	err = json.Unmarshal([]byte(r.Body), &w)
@@ -89,6 +93,9 @@ func resourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m inte
 	if err != nil {
 		return diag.FromErr(err)
 	}
+	if r.StatusCode != 200 {
+		return diag.Errorf("Request is failed\n path: %s\n body: %s\n status code: %d\n ", path, r.Body, r.StatusCode)
+	}
 	w := whitelistIPResponse{}
 	err = json.Unmarshal([]byte(r.Body), &w)
 	if err != nil {
@@ -118,11 +125,13 @@ func resourceWhitelistIPDelete(ctx context.Context, d *schema.ResourceData, m in
 	request := sendgrid.GetRequest(apiKey, path, "https://api.sendgrid.com")
 	request.Method = "DELETE"
 
-	_, err := sendgrid.API(request)
+	r, err := sendgrid.API(request)
 	if err != nil {
 		return diag.FromErr(err)
 	}
-
+	if r.StatusCode != 204 {
+		return diag.Errorf("Request is failed\n path: %s\n body: %s\n status code: %d\n ", path, r.Body, r.StatusCode)
+	}
 	// d.SetId("") is automatically called assuming delete returns no errors, but
 	// it is added here for explicitness.
 	d.SetId("")

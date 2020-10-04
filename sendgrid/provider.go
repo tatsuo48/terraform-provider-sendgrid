@@ -13,7 +13,8 @@ func Provider() *schema.Provider {
 		Schema: map[string]*schema.Schema{
 			"api_key": {
 				Type:        schema.TypeString,
-				Optional:    true,
+				Required:    true,
+				Sensitive:   true,
 				DefaultFunc: schema.EnvDefaultFunc("SENDGRID_API_KEY", nil),
 			},
 		},
@@ -30,5 +31,8 @@ func Provider() *schema.Provider {
 func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 	apikey := d.Get("api_key").(string)
 	var diags diag.Diagnostics
+	if apikey == "" {
+		return nil, diag.Errorf("api key is not set, please see this document https://registry.terraform.io/providers/tatsuo48/sendgrid/latest/docs#authentication")
+	}
 	return apikey, diags
 }
