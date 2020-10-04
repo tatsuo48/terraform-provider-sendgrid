@@ -16,6 +16,9 @@ func resourceWhitelistIP() *schema.Resource {
 		CreateContext: resourceWhitelistIPCreate,
 		ReadContext:   resourceWhitelistIPRead,
 		DeleteContext: resourceWhitelistIPDelete,
+		Importer: &schema.ResourceImporter{
+			StateContext: schema.ImportStatePassthroughContext,
+		},
 		Schema: map[string]*schema.Schema{
 			"ip": {
 				Type:     schema.TypeString,
