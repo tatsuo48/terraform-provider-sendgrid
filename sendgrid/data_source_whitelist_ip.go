@@ -51,6 +51,9 @@ func dataSourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m in
 	if err != nil {
 		return diag.FromErr(err)
 	}
+	if r.StatusCode != 200 {
+		return diag.Errorf("Request is failed\n path: %s\n body: %s\n status code: %d\n ", path, r.Body, r.StatusCode)
+	}
 	w := whitelistIPResponse{}
 	err = json.Unmarshal([]byte(r.Body), &w)
 	if err != nil {

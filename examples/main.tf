@@ -1,5 +1,3 @@
-variable "api_key" {}
-
 terraform {
   required_providers {
     sendgrid = {
@@ -9,7 +7,6 @@ terraform {
 }
 
 provider "sendgrid" {
-  api_key = var.api_key
 }
 
 data "sendgrid_whitelist_ip" "first" {
