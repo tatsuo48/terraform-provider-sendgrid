@@ -3,7 +3,6 @@ variable "api_key" {}
 terraform {
   required_providers {
     sendgrid = {
-      versions = ["0.0.1"]
       source = "hashicorp.com/tatsuo48/sendgrid"
     }
   }
