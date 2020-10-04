@@ -1,5 +1,7 @@
 # Terraform Provider Sendgrid
 
+[Terraform Registry](https://registry.terraform.io/providers/tatsuo48/sendgrid/latest)
+
 ## supported resources
 
 Current supported only `ip_access_management`  
@@ -25,7 +27,9 @@ resource "sendgrid_whitelist_ip" "first" {
 }
 ```
 
-## Test sample configuration
+## Development
+
+### Test sample configuration
 
 First, build and install the provider.
 
