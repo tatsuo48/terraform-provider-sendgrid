@@ -68,6 +68,6 @@ func dataSourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m in
 	if err := d.Set("updated_at", w.Result.UpdatedAt); err != nil {
 		return diag.FromErr(err)
 	}
-
+	d.SetId(ipID)
 	return diags
 }
