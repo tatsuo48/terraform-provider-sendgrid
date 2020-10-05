@@ -10,9 +10,9 @@ provider "sendgrid" {
 }
 
 data "sendgrid_whitelist_ip" "first" {
-  id = 1945952
+  rule_id = 1234567
 }
 
 resource "sendgrid_whitelist_ip" "first" {
-  ip = "192.168.0.1/32"
+  ip = "127.0.0.1/32"
 }

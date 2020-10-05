@@ -15,7 +15,7 @@ func dataSourceWhitelistIP() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceWhitelistIPRead,
 		Schema: map[string]*schema.Schema{
-			"id": {
+			"rule_id": {
 				Type:     schema.TypeInt,
 				Required: true,
 				ForceNew: true,
@@ -42,7 +42,7 @@ func dataSourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m in
 	// Warning or errors can be collected in a slice type
 	var diags diag.Diagnostics
 
-	ipID := strconv.Itoa(d.Get("id").(int))
+	ipID := strconv.Itoa(d.Get("rule_id").(int))
 	path := fmt.Sprintf("/v3/access_settings/whitelist/%s", ipID)
 	request := sendgrid.GetRequest(apiKey, path, "https://api.sendgrid.com")
 	request.Method = "GET"
@@ -66,6 +66,9 @@ func dataSourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m in
 		return diag.FromErr(err)
 	}
 	if err := d.Set("updated_at", w.Result.UpdatedAt); err != nil {
+		return diag.FromErr(err)
+	}
+	if err := d.Set("rule_id", w.Result.ID); err != nil {
 		return diag.FromErr(err)
 	}
 	d.SetId(ipID)

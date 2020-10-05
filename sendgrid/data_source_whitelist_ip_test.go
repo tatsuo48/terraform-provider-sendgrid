@@ -24,6 +24,7 @@ func TestAccDataSourceWhitelistIP_Basic(t *testing.T) {
 				Config: testAccDataSourceWhitelistIP_Existent(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(datasourceName, "ip", resourceName, "ip"),
+					resource.TestCheckResourceAttrPair(datasourceName, "rule_id", resourceName, "rule_id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "created_at", resourceName, "created_at"),
 					resource.TestCheckResourceAttrPair(datasourceName, "updated_at", resourceName, "updated_at"),
@@ -39,7 +40,7 @@ resource "sendgrid_whitelist_ip" "first" {
 	ip = "192.168.0.1/32"
 }
 data "sendgrid_whitelist_ip" "first" {
-  id = sendgrid_whitelist_ip.first.id
+  rule_id = sendgrid_whitelist_ip.first.rule_id
 }
 `)
 }
@@ -47,7 +48,7 @@ data "sendgrid_whitelist_ip" "first" {
 func testAccDataSourceWhitelistIP_NonExistent() string {
 	return fmt.Sprintf(`
 data "sendgrid_whitelist_ip" "first" {
-  id = 1234567
+  rule_id = 1234567
 }
 resource "sendgrid_whitelist_ip" "first" {
   ip = "192.168.0.1/32"
