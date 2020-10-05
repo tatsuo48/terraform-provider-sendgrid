@@ -2,7 +2,7 @@ TEST?=$$(go list ./... | grep -v 'vendor')
 NAMESPACE=tatsuo48
 NAME=sendgrid
 BINARY=terraform-provider-${NAME}
-VERSION=0.1.0
+VERSION=0.1.4
 OS_ARCH=darwin_amd64
 
 default: install
