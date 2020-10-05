@@ -20,6 +20,10 @@ func resourceWhitelistIP() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 		Schema: map[string]*schema.Schema{
+			"rule_id": {
+				Type:     schema.TypeInt,
+				Computed: true,
+			},
 			"ip": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -51,7 +55,7 @@ func resourceWhitelistIPCreate(ctx context.Context, d *schema.ResourceData, m in
 	path := "/v3/access_settings/whitelist"
 	request := sendgrid.GetRequest(apiKey, path, "https://api.sendgrid.com")
 	request.Method = "POST"
-	body := fmt.Sprintf(`{"ips": [{"ip": "%s"}]}`, d.Get("ip"))
+	body := fmt.Sprintf(`{"ips": [{"ip": "%s"}]}`, d.Get("ip").(string))
 	request.Body = []byte(body)
 	r, err := sendgrid.API(request)
 	if err != nil {
@@ -69,6 +73,9 @@ func resourceWhitelistIPCreate(ctx context.Context, d *schema.ResourceData, m in
 		return diag.FromErr(err)
 	}
 	if err := d.Set("updated_at", w.Result[0].UpdatedAt); err != nil {
+		return diag.FromErr(err)
+	}
+	if err := d.Set("rule_id", w.Result[0].ID); err != nil {
 		return diag.FromErr(err)
 	}
 	// always run
@@ -108,6 +115,9 @@ func resourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m inte
 		return diag.FromErr(err)
 	}
 	if err := d.Set("updated_at", w.Result.UpdatedAt); err != nil {
+		return diag.FromErr(err)
+	}
+	if err := d.Set("rule_id", w.Result.ID); err != nil {
 		return diag.FromErr(err)
 	}
 	return diags

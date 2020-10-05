@@ -14,13 +14,13 @@ data "sendgrid_whitelist_ip" "first" {
 
 The following arguments are supported:
 
-- `id` - (Required) Rule ID.
+- `rule_id` - (Required) Rule ID.
 
 ## Attributes Reference
 
 In addition to all arguments above, the following attributes are exported:
 
 - `ip` - Whitelisted IP.
-- `id` - Rule ID.
+- `rule_id` - Rule ID.
 - `created_at` - The time when the rule was created.
 - `updated_at` - The time when the rule was updated.

@@ -13,12 +13,12 @@ provider "sendgrid" {
 
 # Create a resource sendgrid_whitelist_ip
 resource "sendgrid_whitelist_ip" "first" {
-  ip = "192.168.0.1/32"
+  ip = "127.0.0.1/32"
 }
 
 # Create a data source sendgrid_whitelist_ip
 data "sendgrid_whitelist_ip" "first" {
-  id = 1945952
+  id = 1234567
 }
 ```
 
