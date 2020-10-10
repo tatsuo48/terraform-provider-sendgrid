@@ -69,15 +69,6 @@ func resourceWhitelistIPCreate(ctx context.Context, d *schema.ResourceData, m in
 	if err != nil {
 		return diag.FromErr(err)
 	}
-	if err := d.Set("created_at", w.Result[0].CreatedAt); err != nil {
-		return diag.FromErr(err)
-	}
-	if err := d.Set("updated_at", w.Result[0].UpdatedAt); err != nil {
-		return diag.FromErr(err)
-	}
-	if err := d.Set("rule_id", w.Result[0].ID); err != nil {
-		return diag.FromErr(err)
-	}
 	// always run
 	d.SetId(strconv.Itoa(w.Result[0].ID))
 	resourceWhitelistIPRead(ctx, d, m)
