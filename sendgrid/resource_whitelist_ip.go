@@ -8,7 +8,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/sendgrid/sendgrid-go"
+	"github.com/tatsuo48/terraform-provider-sendgrid/client"
 )
 
 func resourceWhitelistIP() *schema.Resource {
@@ -47,17 +47,14 @@ func resourceWhitelistIP() *schema.Resource {
 }
 
 func resourceWhitelistIPCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	apiKey := m.(string)
+	client := m.(client.SendgridCLient)
 
 	// Warning or errors can be collected in a slice type
 	var diags diag.Diagnostics
 
 	path := "/v3/access_settings/whitelist"
-	request := sendgrid.GetRequest(apiKey, path, "https://api.sendgrid.com")
-	request.Method = "POST"
 	body := fmt.Sprintf(`{"ips": [{"ip": "%s"}]}`, d.Get("ip").(string))
-	request.Body = []byte(body)
-	r, err := sendgrid.API(request)
+	r, err := client.Post(path, body)
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -76,7 +73,7 @@ func resourceWhitelistIPCreate(ctx context.Context, d *schema.ResourceData, m in
 }
 
 func resourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	apiKey := m.(string)
+	client := m.(client.SendgridCLient)
 
 	// Warning or errors can be collected in a slice type
 	var diags diag.Diagnostics
@@ -84,10 +81,8 @@ func resourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m inte
 	ipID := d.Id()
 
 	path := fmt.Sprintf("/v3/access_settings/whitelist/%s", ipID)
-	request := sendgrid.GetRequest(apiKey, path, "https://api.sendgrid.com")
-	request.Method = "GET"
 
-	r, err := sendgrid.API(request)
+	r, err := client.Get(path)
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -115,7 +110,7 @@ func resourceWhitelistIPRead(ctx context.Context, d *schema.ResourceData, m inte
 }
 
 func resourceWhitelistIPDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	apiKey := m.(string)
+	client := m.(client.SendgridCLient)
 
 	// Warning or errors can be collected in a slice type
 	var diags diag.Diagnostics
@@ -123,10 +118,8 @@ func resourceWhitelistIPDelete(ctx context.Context, d *schema.ResourceData, m in
 	ipID := d.Id()
 
 	path := fmt.Sprintf("/v3/access_settings/whitelist/%s", ipID)
-	request := sendgrid.GetRequest(apiKey, path, "https://api.sendgrid.com")
-	request.Method = "DELETE"
+	r, err := client.Delete(path)
 
-	r, err := sendgrid.API(request)
 	if err != nil {
 		return diag.FromErr(err)
 	}

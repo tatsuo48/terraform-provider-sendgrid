@@ -6,7 +6,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
-	"github.com/sendgrid/sendgrid-go"
+	"github.com/tatsuo48/terraform-provider-sendgrid/client"
 )
 
 func TestAccResourceWhitelistIP_Basic(t *testing.T) {
@@ -41,12 +41,10 @@ func testAccResourceWhitelistIPExists(n string) resource.TestCheckFunc {
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Whitelist IP id is set")
 		}
-		apiKey := testAccProvider.Meta().(string)
+		client := testAccProvider.Meta().(client.SendgridCLient)
 		path := fmt.Sprintf("/v3/access_settings/whitelist/%s", rs.Primary.ID)
-		request := sendgrid.GetRequest(apiKey, path, "https://api.sendgrid.com")
-		request.Method = "GET"
 
-		r, err := sendgrid.API(request)
+		r, err := client.Get(path)
 		if err != nil {
 			return fmt.Errorf("Request is failed")
 		}
