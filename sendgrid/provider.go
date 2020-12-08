@@ -5,6 +5,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/tatsuo48/terraform-provider-sendgrid/client"
 )
 
 // Provider -
@@ -34,5 +35,8 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 	if apikey == "" {
 		return nil, diag.Errorf("api key is not set, please see this document https://registry.terraform.io/providers/tatsuo48/sendgrid/latest/docs#authentication")
 	}
-	return apikey, diags
+	return client.SendgridCLient{
+		APIKey: apikey,
+		Host:   "https://api.sendgrid.com",
+	}, diags
 }
