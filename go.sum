@@ -282,6 +282,7 @@ github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFR
 github.com/sendgrid/rest v1.0.2 h1:xdfALkR1m9eqf41/zEnUmV0fw4b31ZzGZ4Dj5f2/w04=
 github.com/sendgrid/rest v2.6.1+incompatible h1:8DyG9t24pTGYb9D7PsyCHlLsqAm4rUbSel0GQtNpN3Y=
 github.com/sendgrid/rest v2.6.1+incompatible/go.mod h1:kXX7q3jZtJXK5c5qK83bSGMdV6tsOE70KbHoqJls4lE=
+github.com/sendgrid/rest v2.6.2+incompatible/go.mod h1:kXX7q3jZtJXK5c5qK83bSGMdV6tsOE70KbHoqJls4lE=
 github.com/sendgrid/sendgrid-go v1.2.0 h1:2K3teZdhaPe12ftFyFL4AWDH4QmNPc+sCi6mWFx5+oo=
 github.com/sendgrid/sendgrid-go v3.6.4+incompatible h1:FYh0yWd99fIPbq6vnDUfnS74nsymbzQIJ2e8sIFB2lk=
 github.com/sendgrid/sendgrid-go v3.6.4+incompatible/go.mod h1:QRQt+LX/NmgVEvmdRw0VT/QgUn499+iza2FnDca9fg8=
