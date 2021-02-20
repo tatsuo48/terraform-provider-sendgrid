@@ -3,7 +3,7 @@ module github.com/tatsuo48/terraform-provider-sendgrid
 go 1.15
 
 require (
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.0.3
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.4.3
 	github.com/sendgrid/rest v2.6.2+incompatible
-	github.com/sendgrid/sendgrid-go v3.6.4+incompatible
+	github.com/sendgrid/sendgrid-go v3.8.0+incompatible
 )
