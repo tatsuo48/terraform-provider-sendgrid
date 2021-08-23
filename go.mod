@@ -5,5 +5,5 @@ go 1.15
 require (
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.4.4
 	github.com/sendgrid/rest v2.6.4+incompatible
-	github.com/sendgrid/sendgrid-go v3.8.0+incompatible
+	github.com/sendgrid/sendgrid-go v3.10.0+incompatible
 )
