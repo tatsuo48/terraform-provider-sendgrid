@@ -1,6 +1,6 @@
 module github.com/tatsuo48/terraform-provider-sendgrid
 
-go 1.15
+go 1.19
 
 require (
 	github.com/agext/levenshtein v1.2.3 // indirect
