@@ -13,7 +13,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/oklog/run v1.1.0 // indirect
 	github.com/sendgrid/rest v2.6.8+incompatible
-	github.com/sendgrid/sendgrid-go v3.11.1+incompatible
+	github.com/sendgrid/sendgrid-go v3.13.0+incompatible
 	github.com/vmihailenco/tagparser v0.1.2 // indirect
 	github.com/zclconf/go-cty v1.10.0 // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
